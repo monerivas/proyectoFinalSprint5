@@ -6,7 +6,7 @@ var $listaTemas = $("#listaTemas"); /*jala la tabla del HTML*/
 var cargarPagina = function () {
     cargarTemas(); /*<----Esta funcion muestra los temas que ya estan en la API*/
     $("#add-form").submit(agregarTemaNuevo); /*<---Esta funcion agrega temas a la data de la API y lo muestra en el HTML desde el formulario que se presenta como un modal*/
-    
+
     $("#form-busqueda").submit(busquedaTemas); /*<---Esta funcion busca un tema especifico de los temas de la data de la API que yo meti en un arreglo llamado arregloTemas */
 };
 
@@ -58,6 +58,15 @@ var agregarTemaNuevo = function (e) {
         });
 };
 
+/*---- Plantillas----*/
+
+var plantillaTema = "<tr>" +
+    "<td>__Autor__</td>" +
+    "<td>__Tema__</td>" +
+    "<td>__#Respuestas__</td>" +
+    "</tr>";
+
+
 /*-------------Busqueda de temas-----*/
 
 var arregloTemas = [];
@@ -71,15 +80,31 @@ $.getJSON(api.url, function (temas) {
 
 var busquedaTemas = function (e) {
     e.preventDefault();
+
     var criterioBusqueda = $("#inputBusqueda").val().toLowerCase();
     var temasFiltrados = arregloTemas.filter(function (tema) {
-        return tema.author_name.toLowerCase().indexOf(criterioBusqueda) >= 0;
+        return tema.content.toLowerCase().indexOf(criterioBusqueda) >= 0;
     });
-    crearTema(temasFiltrados);
-    console.log(temasFiltrados); 
-/*    Si aparecen los temas que cumplen el criterioBusqueda pero no los imprime aun*/
-}
 
+/*    cargarTemas(temasFiltrados);*/
+    mostrarTemasFiltrados(temasFiltrados);
+    
+    console.log("temas filtrados    " + temasFiltrados);
+    /*    Si aparecen los temas que cumplen el criterioBusqueda pero no los imprime aun*/
+    
+ 
+};
+
+var mostrarTemasFiltrados= function(temasFiltrados){
+    var plantillaFinal="";
+    temasFiltrados.forEach(function(tema){
+      plantillaFinal+= plantillaTema.replace("__Autor__", tema.author_name).replace("__Tema__", tema.content).replace("__#Respuestas__", tema.responses_count);
+    });
+    
+    $("#listaTemas").html("");
+    $("#listaTemas").html(plantillaFinal);
+
+}
 
 
 
