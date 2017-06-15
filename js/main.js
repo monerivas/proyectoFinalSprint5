@@ -19,17 +19,25 @@ var crearTema = function(tema){
     //Jalo las propiedades que me interesan del objeto temas/topics
     var nombreAutor= tema.author_name;
     var contenido= tema.content;
-    //Creo los elementos con DOM, primero filas
+    var numRespuestas= tema.responses_count;
+    //Creo los elementos con DOM, primero filas tr
     var $tr=$("<tr/>");
-    //Creo la celda del nombre de autor
+    //Creo la celda td del nombre de autor
     var $nombreAutorTd=$("<td/>");
     $nombreAutorTd.text(nombreAutor);
     //creo celda de Contenido del Tema
     var $contenidoTd=$("<td/>");
     $contenidoTd.text(contenido);
+    
+    //Creo la celda del numero de respuestas
+    var $numRespuestasTd=$("<td/>");
+    $numRespuestasTd.text(numRespuestas);
+    
+    
     //Metemos las celdas a las filas
     $tr.append($nombreAutorTd);
     $tr.append($contenidoTd);
+    $tr.append($numRespuestasTd);
     //Metemos las filas a la tabla
     $listaTemas.append($tr);   
 };
