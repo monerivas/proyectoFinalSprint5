@@ -54,7 +54,7 @@ var agregarTemaNuevo = function (e) {
         },
         function (tema) {
             crearTema(tema);
-            $("#myModal1").modal("hide");
+            $("#myModal").modal("hide");
         });
 };
 
