@@ -88,19 +88,20 @@ var busquedaTemas = function (e) {
 
 /*    cargarTemas(temasFiltrados);*/
     mostrarTemasFiltrados(temasFiltrados);
-    
+
     console.log("temas filtrados    " + temasFiltrados);
     /*    Si aparecen los temas que cumplen el criterioBusqueda pero no los imprime aun*/
-    
- 
+
+
 };
 
 var mostrarTemasFiltrados= function(temasFiltrados){
+  console.log(temasFiltrados);
     var plantillaFinal="";
     temasFiltrados.forEach(function(tema){
       plantillaFinal+= plantillaTema.replace("__Autor__", tema.author_name).replace("__Tema__", tema.content).replace("__#Respuestas__", tema.responses_count);
     });
-    
+
     $("#listaTemas").html("");
     $("#listaTemas").html(plantillaFinal);
 
